@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import ru.juriasan.washmachineapi.domain.WashMachine;
+import ru.juriasan.washmachineapi.repository.WashMachineRepository;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -21,8 +23,8 @@ public class Application implements CommandLineRunner {
 		repository.deleteAll();
 
 		// save a couple of customers
-		repository.save(new WashMachine("Alice", "Smith"));
-		repository.save(new WashMachine("Bob", "Smith"));
+		repository.save(new WashMachine("Model1"));
+		repository.save(new WashMachine("Model2"));
 
 		// fetch all customers
 		System.out.println("Customers found with findAll():");
@@ -35,11 +37,11 @@ public class Application implements CommandLineRunner {
 		// fetch an individual customer
 		System.out.println("WashMachine found with findByFirstName('Alice'):");
 		System.out.println("--------------------------------");
-		System.out.println(repository.findByFirstName("Alice"));
+//		System.out.println(repository.findByFirstName("Alice"));
 
 		System.out.println("Customers found with findByLastName('Smith'):");
 		System.out.println("--------------------------------");
-		for (WashMachine customer : repository.findByLastName("Smith")) {
+		for (WashMachine customer : repository.findByModelName("model1")) {
 			System.out.println(customer);
 		}
 

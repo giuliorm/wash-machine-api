@@ -1,4 +1,4 @@
-package ru.juriasan.washmachineapi;
+package ru.juriasan.washmachineapi.domain;
 
 public enum WashMode {
   SILK,
