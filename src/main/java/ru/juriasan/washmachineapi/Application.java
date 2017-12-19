@@ -1,4 +1,4 @@
-package hello;
+package ru.juriasan.washmachineapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application implements CommandLineRunner {
 
 	@Autowired
-	private CustomerRepository repository;
+	private WashMachineRepository repository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -21,25 +21,25 @@ public class Application implements CommandLineRunner {
 		repository.deleteAll();
 
 		// save a couple of customers
-		repository.save(new Customer("Alice", "Smith"));
-		repository.save(new Customer("Bob", "Smith"));
+		repository.save(new WashMachine("Alice", "Smith"));
+		repository.save(new WashMachine("Bob", "Smith"));
 
 		// fetch all customers
 		System.out.println("Customers found with findAll():");
 		System.out.println("-------------------------------");
-		for (Customer customer : repository.findAll()) {
+		for (WashMachine customer : repository.findAll()) {
 			System.out.println(customer);
 		}
 		System.out.println();
 
 		// fetch an individual customer
-		System.out.println("Customer found with findByFirstName('Alice'):");
+		System.out.println("WashMachine found with findByFirstName('Alice'):");
 		System.out.println("--------------------------------");
 		System.out.println(repository.findByFirstName("Alice"));
 
 		System.out.println("Customers found with findByLastName('Smith'):");
 		System.out.println("--------------------------------");
-		for (Customer customer : repository.findByLastName("Smith")) {
+		for (WashMachine customer : repository.findByLastName("Smith")) {
 			System.out.println(customer);
 		}
 

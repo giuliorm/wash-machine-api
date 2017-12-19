@@ -1,4 +1,4 @@
-package hello;
+package ru.juriasan.washmachineapi;
 /*
  * Copyright 2016 the original author or authors.
  *
@@ -30,27 +30,27 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CustomerRepositoryTests {
+public class WashMachineRepositoryTests {
 
     @Autowired
-    CustomerRepository repository;
+    WashMachineRepository repository;
 
-    Customer dave, oliver, carter;
+    WashMachine dave, oliver, carter;
 
     @Before
     public void setUp() {
 
         repository.deleteAll();
 
-        dave = repository.save(new Customer("Dave", "Matthews"));
-        oliver = repository.save(new Customer("Oliver August", "Matthews"));
-        carter = repository.save(new Customer("Carter", "Beauford"));
+        dave = repository.save(new WashMachine("Dave", "Matthews"));
+        oliver = repository.save(new WashMachine("Oliver August", "Matthews"));
+        carter = repository.save(new WashMachine("Carter", "Beauford"));
     }
 
     @Test
     public void setsIdOnSave() {
 
-        Customer dave = repository.save(new Customer("Dave", "Matthews"));
+        WashMachine dave = repository.save(new WashMachine("Dave", "Matthews"));
 
         assertThat(dave.id).isNotNull();
     }
@@ -58,7 +58,7 @@ public class CustomerRepositoryTests {
     @Test
     public void findsByLastName() {
 
-        List<Customer> result = repository.findByLastName("Beauford");
+        List<WashMachine> result = repository.findByLastName("Beauford");
 
         assertThat(result).hasSize(1).extracting("firstName").contains("Carter");
     }
@@ -66,9 +66,9 @@ public class CustomerRepositoryTests {
     @Test
     public void findsByExample() {
 
-        Customer probe = new Customer(null, "Matthews");
+        WashMachine probe = new WashMachine(null, "Matthews");
 
-        List<Customer> result = repository.findAll(Example.of(probe));
+        List<WashMachine> result = repository.findAll(Example.of(probe));
 
         assertThat(result).hasSize(2).extracting("firstName").contains("Dave", "Oliver August");
     }
