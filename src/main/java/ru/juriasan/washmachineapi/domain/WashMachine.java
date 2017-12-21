@@ -1,12 +1,16 @@
 package ru.juriasan.washmachineapi.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class WashMachine {
 
   @Id
   private String id;
 
+  @Indexed
   private String modelName;
   private boolean turnedOn;
   private WashState state;
