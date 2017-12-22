@@ -1,6 +1,7 @@
 package ru.juriasan.washmachineapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,13 +40,14 @@ public class StateController extends BaseController {
     return machine;
   }
 
-  @RequestMapping("/getState")
-  public WashState getState(@RequestParam(name = "modelName") String modelName) {
-    return findByModelName(modelName, CANNOT_GET_STATE_FORMAT).getState();
+  @RequestMapping("/{modelName}/getState")
+  public WashState getState(@PathVariable String modelName) {
+    WashState state = findByModelName(modelName, CANNOT_GET_STATE_FORMAT).getState();
+    return state != null ? state : WashState.NONE;
   }
 
-  @RequestMapping("/setState")
-  public String setState(@RequestParam(name = "modelName") String modelName,
+  @RequestMapping("/{modelName}/setState")
+  public String setState(@PathVariable String modelName,
                              @RequestParam(name = "state") WashState state) {
     if ( state == null ) {
       throw new InvalidParameterException(String.format(CANNOT_SET_STATE_FORMAT, STATE_IS_NULL));
@@ -56,16 +58,17 @@ public class StateController extends BaseController {
     return STATE_IS_UPDATED_SUCCESSFULLY;
   }
 
-  @RequestMapping("/getMode")
-  public WashMode getCurrentWashMode(@RequestParam(name = "modelName") String modelName) {
-    return findByModelName(modelName, CANNOT_GET_CURRENT_WASH_MODE_FORMAT).getCurrentWashMode();
+  @RequestMapping("/{modelName}/getMode")
+  public WashMode getCurrentWashMode(@PathVariable String modelName) {
+    WashMode mode = findByModelName(modelName, CANNOT_GET_CURRENT_WASH_MODE_FORMAT).getCurrentWashMode();
+    return mode != null ? mode : WashMode.NONE;
   }
 
-  @RequestMapping("/setMode")
-  public String setCurrentWashMode(@RequestParam(name = "modelName") String modelName,
+  @RequestMapping("/{modelName}/setMode")
+  public String setCurrentWashMode(@PathVariable String modelName,
                                        @RequestParam(name = "mode") WashMode washMode) {
     if ( washMode == null ) {
-      throw new InvalidParameterException(String.format(CANNOT_SET_CURRENT_WASH_MODE_FORMAT, STATE_IS_NULL));
+      throw new InvalidParameterException(String.format(CANNOT_SET_CURRENT_WASH_MODE_FORMAT, WASH_MODE_IS_NULL));
     }
     WashMachine machine = findByModelName(modelName, CANNOT_SET_CURRENT_WASH_MODE_FORMAT);
     machine.setCurrentWashMode(washMode);
