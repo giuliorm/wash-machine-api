@@ -1,16 +1,14 @@
 package ru.juriasan.washmachineapi.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.juriasan.washmachineapi.controllers.exception.TurnOffException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 import ru.juriasan.washmachineapi.domain.WashState;
-import ru.juriasan.washmachineapi.repository.WashMachineRepository;
 
-@RestController
 @RequestMapping("/turn")
+@RestController
 public class OnOffController extends BaseController {
 
   private static final String CANNOT_TURN_MACHINE_ON_FORMAT = "Cannot turn machine on: %s";

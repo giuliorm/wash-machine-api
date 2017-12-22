@@ -1,19 +1,16 @@
 package ru.juriasan.washmachineapi.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.juriasan.washmachineapi.controllers.exception.DatabaseEntityNotFoundException;
 import ru.juriasan.washmachineapi.controllers.exception.InvalidParameterException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
-import ru.juriasan.washmachineapi.repository.WashMachineRepository;
 import ru.juriasan.washmachineapi.domain.WashMode;
 import ru.juriasan.washmachineapi.domain.WashState;
 
-@RestController
 @RequestMapping("/state")
+@RestController
 public class StateController extends BaseController {
 
   private static final String CANNOT_SET_STATE_FORMAT = "Cannot set state: %s";
