@@ -7,9 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class WashMachine {
 
-  @Id
-  private String id;
-
   @Indexed
   private String modelName;
   private boolean turnedOn;
@@ -25,8 +22,8 @@ public class WashMachine {
   @Override
   public String toString() {
       return String.format(
-              "WashMachine[id=%s, modelName='%s']",
-              id, modelName);
+              "WashMachine[modelName='%s']",
+               modelName);
   }
 
   public String getModelName() {

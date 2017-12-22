@@ -22,6 +22,8 @@ build/
 *.ipr
 *.iws
 *.idea
+.idea/
+.git/
 
 # Test files
 

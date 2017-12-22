@@ -8,5 +8,5 @@ import ru.juriasan.washmachineapi.domain.WashMachine;
 public interface WashMachineRepository extends MongoRepository<WashMachine, String> {
 
   WashMachine findByModelName(String modelName);
-  WashMachine findById(String id);
+  List<WashMachine> findAll();
 }

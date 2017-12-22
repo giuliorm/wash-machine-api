@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.juriasan.washmachineapi.controllers.exception.DatabaseEntityNotFoundException;
 import ru.juriasan.washmachineapi.controllers.exception.InvalidParameterException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
+import ru.juriasan.washmachineapi.repository.WashMachineRepository;
 import ru.juriasan.washmachineapi.domain.WashMode;
 import ru.juriasan.washmachineapi.domain.WashState;
-import ru.juriasan.washmachineapi.repository.WashMachineRepository;
 
 @RestController
 @RequestMapping("/state")
@@ -25,21 +25,6 @@ public class StateController extends BaseController {
   private static final String WASH_MODE_IS_UPDATED_SUCCESSFULLY = "Wash mode has been updated successfully.";
   private static final String WASH_MODE_IS_NULL = "Wash mode is null.";
 
-  @Autowired
-  private WashMachineRepository repository;
-
-  private WashMachine findByModelName(String modelName, String errorMessageFormat) {
-    if ( modelName == null ) {
-      throw new InvalidParameterException(String.format(errorMessageFormat, MACHINE_MODEL_NAME_IS_NULL));
-    }
-    WashMachine machine = repository.findByModelName(modelName);
-    if ( machine == null ) {
-      throw new DatabaseEntityNotFoundException(String.format(errorMessageFormat,
-          String.format(MACHINE_MODEL_NAME_IS_NOT_FOUND, modelName)));
-    }
-    return machine;
-  }
-
   @RequestMapping("/{modelName}/getState")
   public WashState getState(@PathVariable String modelName) {
     WashState state = findByModelName(modelName, CANNOT_GET_STATE_FORMAT).getState();
@@ -47,8 +32,7 @@ public class StateController extends BaseController {
   }
 
   @RequestMapping("/{modelName}/setState")
-  public String setState(@PathVariable String modelName,
-                             @RequestParam(name = "state") WashState state) {
+  public String setState(@PathVariable String modelName, @RequestParam(name = "state") WashState state) {
     if ( state == null ) {
       throw new InvalidParameterException(String.format(CANNOT_SET_STATE_FORMAT, STATE_IS_NULL));
     }
@@ -65,8 +49,7 @@ public class StateController extends BaseController {
   }
 
   @RequestMapping("/{modelName}/setMode")
-  public String setCurrentWashMode(@PathVariable String modelName,
-                                       @RequestParam(name = "mode") WashMode washMode) {
+  public String setCurrentWashMode(@PathVariable String modelName, @RequestParam(name = "mode") WashMode washMode) {
     if ( washMode == null ) {
       throw new InvalidParameterException(String.format(CANNOT_SET_CURRENT_WASH_MODE_FORMAT, WASH_MODE_IS_NULL));
     }
