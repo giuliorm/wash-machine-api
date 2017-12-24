@@ -1,5 +1,6 @@
 package ru.juriasan.washmachineapi.service;
 
+import org.springframework.stereotype.Service;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 
 import java.util.List;

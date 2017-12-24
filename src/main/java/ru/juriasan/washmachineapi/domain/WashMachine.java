@@ -72,19 +72,5 @@ public class WashMachine {
      stringBuilder.append(String.format("'%s'", property == null ? "" : property.toString()));
      stringBuilder.append(",");
   }
-  @Override
-  public String toString() {
-    return "ololo";
-//    StringBuilder sb = new StringBuilder();
-//    sb.append("{");
-//    appendProperty(sb, "id", this.id);
-//    appendProperty(sb, "modelName", this.modelName);
-//    appendProperty(sb, "isTurnedOn", this.turnedOn);
-//    appendProperty(sb, "state", this.state);
-//    appendProperty(sb, "mode", this.currentWashMode);
-//    sb.deleteCharAt(sb.length() - 1);
-//    sb.append("}");
-//    return sb.toString();
-  }
 }
 
