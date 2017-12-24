@@ -15,9 +15,6 @@ import ru.juriasan.washmachineapi.repository.WashMachineRepository;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-  @Autowired
-  private WashMachineRepository repository;
-
 //  @Autowired
 //  private MongoClient mongoClient;
 //
@@ -28,14 +25,7 @@ public class Application implements CommandLineRunner {
 		SpringApplication.run(Application.class, args);
 	}
 
-	private void initDatabase() {
-    repository.deleteAll();
-    repository.save(new WashMachine("model1"));
-    repository.save(new WashMachine("model2"));
-  }
-
 	@Override
 	public void run(String... args) throws Exception {
-    initDatabase();
 	}
 }

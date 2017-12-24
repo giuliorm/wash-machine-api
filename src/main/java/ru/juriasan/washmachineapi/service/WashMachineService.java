@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface WashMachineService {
 
-  List<WashMachine> findAll();
-  WashMachine findByModelName(String modelName);
-
+  public List<WashMachine> findAll();
+  public WashMachine findByModelName(String modelName);
+  public WashMachine save(WashMachine machine);
+  public void remove(WashMachine machine);
 }

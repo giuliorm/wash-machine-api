@@ -1,5 +1,6 @@
 package ru.juriasan.washmachineapi;
 
+import ru.juriasan.washmachineapi.domain.WashMachine;
 import ru.juriasan.washmachineapi.domain.WashMode;
 import ru.juriasan.washmachineapi.domain.WashState;
 
@@ -10,22 +11,27 @@ public class WashMachineBuilder {
   private WashState state;
   private WashMode mode;
 
-  public WashMachineBuilder withModelName(String modelName) {
+  public WashMachineBuilder modelName(String modelName) {
     this.modelName = modelName;
     return this;
   }
 
-  public WashMachineBuilder withState(WashState state) {
+  public WashMachineBuilder state(WashState state) {
     this.state = state;
     return this;
   }
 
-  public InvoiceBuilder withDiscount(PoundsShillingsPence discount) {
-    this.discount = discount;
+  public WashMachineBuilder mode(WashMode mode) {
+    this.mode = mode;
     return this;
   }
 
-  public Invoice build() {
-    return new Invoice(recipient, lines, discount);
+  public WashMachineBuilder isTurnedOn(boolean turnedOn) {
+    this.isTurnedOn = turnedOn;
+    return this;
+  }
+
+  public WashMachine build() {
+    return new WashMachine(modelName, isTurnedOn, state, mode);
   }
 }

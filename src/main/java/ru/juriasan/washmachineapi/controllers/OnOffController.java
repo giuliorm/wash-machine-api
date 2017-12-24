@@ -11,23 +11,22 @@ import ru.juriasan.washmachineapi.domain.WashState;
 @RestController
 public class OnOffController extends BaseController {
 
-  private static final String CANNOT_TURN_MACHINE_ON_FORMAT = "Cannot turn machine on: %s";
-  private static final String CANNOT_TURN_MACHINE_OFF_FORMAT = "Cannot turn machine off: %s";
-  private static final String TURNED_ON_SUCCESSFULLY = "Machine has been turned on successfully";
-  private static final String TURNED_OFF_SUCCESSFULLY = "Machine has been turned off successfully";
-  private static final String MACHINE_IN_STATE_FORMAT = "Machine is currently in %s state, cannot be turned off.";
+  public static final String CANNOT_TURN_MACHINE_ON_FORMAT = "Cannot turn machine on: %s";
+  public static final String CANNOT_TURN_MACHINE_OFF_FORMAT = "Cannot turn machine off: %s";
+  public static final String TURNED_ON_SUCCESSFULLY = "Machine has been turned on successfully";
+  public static final String TURNED_OFF_SUCCESSFULLY = "Machine has been turned off successfully";
+  public static final String MACHINE_IN_STATE_FORMAT = "Machine is currently in %s state, cannot be turned off.";
 
   @RequestMapping("/{modelName}/on")
-  public String turnOn(@PathVariable String modelName) {
+  public WashMachine turnOn(@PathVariable String modelName) {
     WashMachine machine = findByModelName(modelName, CANNOT_TURN_MACHINE_ON_FORMAT);
     machine.turnOn();
-    repository.save(machine);
-    return TURNED_ON_SUCCESSFULLY;
+    return service.save(machine);
   }
 
   // transactional integrity?...
   @RequestMapping("/{modelName}/off")
-  public String turnOff(@PathVariable String modelName) {
+  public WashMachine turnOff(@PathVariable String modelName) {
     WashMachine machine = findByModelName(modelName, CANNOT_TURN_MACHINE_OFF_FORMAT);
     WashState state = machine.getState();
     if ( state != null && state != WashState.NONE && state != WashState.READY ) {
@@ -35,8 +34,7 @@ public class OnOffController extends BaseController {
           String.format(MACHINE_IN_STATE_FORMAT, state)));
     }
     machine.turnOff();
-    repository.save(machine);
-    return TURNED_OFF_SUCCESSFULLY;
+    return service.save(machine);
   }
 
   @RequestMapping("/{modelName}/isTurnedOn")

@@ -1,6 +1,8 @@
 package ru.juriasan.washmachineapi;
 
 import java.util.Arrays;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -8,6 +10,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
@@ -20,9 +23,12 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.juriasan.washmachineapi.controllers.OnOffController;
 import ru.juriasan.washmachineapi.domain.WashMachine;
-import ru.juriasan.washmachineapi.repository.WashMachineRepository;
+import ru.juriasan.washmachineapi.domain.WashMode;
+import ru.juriasan.washmachineapi.domain.WashState;
+import ru.juriasan.washmachineapi.service.WashMachineService;
 
 @RunWith(SpringRunner.class)
+@ComponentScan("ru.juriasan.washmachineapi")
 @WebMvcTest(value = OnOffController.class, secure = false)
 public class OnOffControllerTest {
 
@@ -30,38 +36,46 @@ public class OnOffControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private WashMachineRepository repository;
+  private WashMachineService washMachineServiceMock;
 
   @Autowired
   private OnOffController onOffControllerMock;
 //  String exampleCourseJson = "{\"name\":\"Spring\",\"description\":\"10 Steps\",\"steps\":[\"Learn Maven\",\"Import Project\",\"First Example\",\"Second Example\"]}";
 
   @Test
+  public void hw() {
+
+  }
+
+  @Test
   public void turnOffTest_ShouldSetIsTurnedOnFalse() throws Exception {
 
-    WashMachine machine = new TodoBuilder()
-        .id(1L)
-        .description("Lorem ipsum")
-        .title("Foo")
-        .build();
+    WashMachine machine = Mockito.mock(WashMachine.class);
+    //new WashMachineBuilder()
+        machine.setModelName("model");
+        machine.turnOff();
+        machine.setState(WashState.NONE);
+        machine.setCurrentWashMode(WashMode.NONE);
 
-    Mockito.when(
-        studentService.retrieveCourse(Mockito.anyString(),
-            Mockito.anyString())).thenReturn(mockCourse);
+    Mockito.when(washMachineServiceMock.findByModelName("model"))
+        .thenReturn(machine);
+
+//    Mockito.when(
+//        onOffControllerMock.turnOn(Mockito.anyString(),
+//            Mockito.anyString())).thenReturn(machine);
 
     RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-        "/students/Student1/courses/Course1").accept(
+        "/model/on").accept(
         MediaType.APPLICATION_JSON);
 
     MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-    System.out.println(result.getResponse());
-    String expected = "{id:Course1,name:Spring,description:10 Steps}";
-
+    String response = result.getResponse().getContentAsString();
+    machine.turnOn();
+    String expected = machine.toString();
     // {"id":"Course1","name":"Spring","description":"10 Steps, 25 Examples and 10K Students","steps":["Learn Maven","Import Project","First Example","Second Example"]}
 
-    JSONAssert.assertEquals(expected, result.getResponse()
-        .getContentAsString(), false);
+    JSONAssert.assertEquals(expected, response, false);
   }
 
 }

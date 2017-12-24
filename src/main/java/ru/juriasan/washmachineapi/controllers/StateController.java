@@ -13,14 +13,14 @@ import ru.juriasan.washmachineapi.domain.WashState;
 @RestController
 public class StateController extends BaseController {
 
-  private static final String CANNOT_SET_STATE_FORMAT = "Cannot set state: %s";
-  private static final String CANNOT_GET_STATE_FORMAT = "Cannot get state: %s";
-  private static final String CANNOT_GET_CURRENT_WASH_MODE_FORMAT = "Cannot get current wash mode: %s";
-  private static final String CANNOT_SET_CURRENT_WASH_MODE_FORMAT = "Cannot set current wash mode: %s";
-  private static final String STATE_IS_NULL = "State parameter is null.";
-  private static final String STATE_IS_UPDATED_SUCCESSFULLY = "State has been updated successfully.";
-  private static final String WASH_MODE_IS_UPDATED_SUCCESSFULLY = "Wash mode has been updated successfully.";
-  private static final String WASH_MODE_IS_NULL = "Wash mode is null.";
+  public static final String CANNOT_SET_STATE_FORMAT = "Cannot set state: %s";
+  public static final String CANNOT_GET_STATE_FORMAT = "Cannot get state: %s";
+  public static final String CANNOT_GET_CURRENT_WASH_MODE_FORMAT = "Cannot get current wash mode: %s";
+  public static final String CANNOT_SET_CURRENT_WASH_MODE_FORMAT = "Cannot set current wash mode: %s";
+  public static final String STATE_IS_NULL = "State parameter is null.";
+  public static final String STATE_IS_UPDATED_SUCCESSFULLY = "State has been updated successfully.";
+  public static final String WASH_MODE_IS_UPDATED_SUCCESSFULLY = "Wash mode has been updated successfully.";
+  public static final String WASH_MODE_IS_NULL = "Wash mode is null.";
 
   @RequestMapping("/{modelName}/getState")
   public WashState getState(@PathVariable String modelName) {
@@ -35,7 +35,7 @@ public class StateController extends BaseController {
     }
     WashMachine machine = findByModelName(modelName, CANNOT_SET_STATE_FORMAT);
     machine.setState(state);
-    repository.save(machine);
+    service.save(machine);
     return STATE_IS_UPDATED_SUCCESSFULLY;
   }
 
@@ -52,7 +52,7 @@ public class StateController extends BaseController {
     }
     WashMachine machine = findByModelName(modelName, CANNOT_SET_CURRENT_WASH_MODE_FORMAT);
     machine.setCurrentWashMode(washMode);
-    repository.save(machine);
+    service.save(machine);
     return WASH_MODE_IS_UPDATED_SUCCESSFULLY;
   }
 }

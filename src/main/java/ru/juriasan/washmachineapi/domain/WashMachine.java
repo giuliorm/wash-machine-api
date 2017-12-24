@@ -25,13 +25,9 @@ public class WashMachine {
 
   public WashMachine(String modelName, boolean turnedOn, WashState state, WashMode mode) {
     this.modelName = modelName;
-  }
-
-  @Override
-  public String toString() {
-      return String.format(
-              "WashMachine[modelName='%s']",
-               modelName);
+    this.turnedOn = turnedOn;
+    this.state = state;
+    this.currentWashMode = mode;
   }
 
   public String getModelName() {
@@ -68,6 +64,27 @@ public class WashMachine {
 
   public WashMode getCurrentWashMode() {
     return this.currentWashMode;
+  }
+
+  private <T> void appendProperty(StringBuilder stringBuilder,  String propertyName, T property) {
+     stringBuilder.append(propertyName);
+     stringBuilder.append(":");
+     stringBuilder.append(String.format("'%s'", property == null ? "" : property.toString()));
+     stringBuilder.append(",");
+  }
+  @Override
+  public String toString() {
+    return "ololo";
+//    StringBuilder sb = new StringBuilder();
+//    sb.append("{");
+//    appendProperty(sb, "id", this.id);
+//    appendProperty(sb, "modelName", this.modelName);
+//    appendProperty(sb, "isTurnedOn", this.turnedOn);
+//    appendProperty(sb, "state", this.state);
+//    appendProperty(sb, "mode", this.currentWashMode);
+//    sb.deleteCharAt(sb.length() - 1);
+//    sb.append("}");
+//    return sb.toString();
   }
 }
 

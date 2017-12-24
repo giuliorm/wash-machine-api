@@ -7,12 +7,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.juriasan.washmachineapi.controllers.exception.DatabaseEntityNotFoundException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
+import ru.juriasan.washmachineapi.domain.WashMode;
+import ru.juriasan.washmachineapi.domain.WashState;
 
 @RestController
 public class MachineController extends BaseController {
 
-  private static final String HELLO = "Welcome to the Wash Machine API";
+  public static final String HELLO = "Welcome to the Wash Machine API";
+  public static final String CANNOT_GET_MACHINE_INFO_FORMAT = "Cannot get machine info: %s";
+  public static final String CANNOT_REMOVE_MACHINE_FORMAT = "Cannot remove machine: %s";
+  public static final String MACHINE_REMOVED_SUCCESSFULLY = "Machine has been removed successfully.";
 
   @RequestMapping("/")
   public String hello() {
@@ -21,17 +27,24 @@ public class MachineController extends BaseController {
 
   @RequestMapping("/machine/all")
   public List<String> findAll() {
-    return repository.findAll().stream().map(WashMachine::getModelName).collect(Collectors.toList());
+    return service.findAll().stream().map(WashMachine::getModelName).collect(Collectors.toList());
   }
 
   @RequestMapping("/machine/{modelName}/create")
-  public String createMachine(@PathVariable String modelName) {
-    return null;
+  public WashMachine createMachine(@PathVariable String modelName) {
+    WashMachine machine = new WashMachine(modelName, false, WashState.NONE, WashMode.NONE);
+    return service.save(machine);
   }
 
   @RequestMapping("/machine/{modelName}/get")
-  public String getMachine(@PathVariable String modelName) {
-    return null;
+  public WashMachine getMachine(@PathVariable String modelName) {
+    return findByModelName(modelName, CANNOT_GET_MACHINE_INFO_FORMAT);
   }
 
+  @RequestMapping("/machine/{modelName}/remove")
+  public String removeMachine(@PathVariable String modelName) {
+    WashMachine machine = findByModelName(modelName, CANNOT_REMOVE_MACHINE_FORMAT);
+    service.remove(machine);
+    return MACHINE_REMOVED_SUCCESSFULLY;
+  }
 }
