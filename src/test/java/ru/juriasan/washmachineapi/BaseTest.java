@@ -13,11 +13,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.juriasan.washmachineapi.controllers.OnOffController;
+import ru.juriasan.washmachineapi.domain.WashMachine;
+import ru.juriasan.washmachineapi.domain.WashMode;
+import ru.juriasan.washmachineapi.domain.WashState;
 import ru.juriasan.washmachineapi.service.WashMachineService;
 
 @RunWith(SpringRunner.class)
 @ComponentScan("ru.juriasan.washmachineapi")
-public class BaseControllerTest {
+public class BaseTest {
 
   @Autowired
   protected MockMvc mockMvc;
@@ -27,6 +30,14 @@ public class BaseControllerTest {
 
   @Autowired
   protected ObjectMapper objectMapper;
+
+  protected WashMachine init(String modelName) {
+    WashMachine machine = new WashMachine();
+    machine.setModelName(modelName);
+    machine.setState(WashState.NONE);
+    machine.setCurrentWashMode(WashMode.NONE);
+    return machine;
+  }
 
   protected String performControllerQuery(String modelName, String apiQueryFormat) throws Exception {
     RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
