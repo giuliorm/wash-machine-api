@@ -21,8 +21,6 @@ public class BaseController {
   protected static final String MACHINE_MODEL_NAME_IS_NOT_FOUND =
       "Machine with name %s cannot be found in the database";
 
-  private static final String HELLO = "Welcome to the Wash Machine API";
-
   protected WashMachine findByModelName(String modelName, String errorMessageFormat) {
     if ( modelName == null ) {
       throw new InvalidParameterException(String.format(errorMessageFormat, MACHINE_MODEL_NAME_IS_NULL));
@@ -33,15 +31,5 @@ public class BaseController {
           String.format(MACHINE_MODEL_NAME_IS_NOT_FOUND, modelName)));
     }
     return machine;
-  }
-
-  @RequestMapping("/")
-  public String hello() {
-    return HELLO;
-  }
-
-  @RequestMapping("/all")
-  public List<String> findAll() {
-    return repository.findAll().stream().map(WashMachine::getModelName).collect(Collectors.toList());
   }
 }

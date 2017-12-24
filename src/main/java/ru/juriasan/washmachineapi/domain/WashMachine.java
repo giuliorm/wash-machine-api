@@ -23,6 +23,10 @@ public class WashMachine {
       this.modelName = modelName;
   }
 
+  public WashMachine(String modelName, boolean turnedOn, WashState state, WashMode mode) {
+    this.modelName = modelName;
+  }
+
   @Override
   public String toString() {
       return String.format(
