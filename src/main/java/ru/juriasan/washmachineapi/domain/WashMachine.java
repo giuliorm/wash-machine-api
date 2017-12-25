@@ -65,12 +65,5 @@ public class WashMachine {
   public WashMode getCurrentWashMode() {
     return this.currentWashMode;
   }
-
-  private <T> void appendProperty(StringBuilder stringBuilder,  String propertyName, T property) {
-     stringBuilder.append(propertyName);
-     stringBuilder.append(":");
-     stringBuilder.append(String.format("'%s'", property == null ? "" : property.toString()));
-     stringBuilder.append(",");
-  }
 }
 

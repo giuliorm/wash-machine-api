@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import ru.juriasan.washmachineapi.controllers.MachineController;
+import ru.juriasan.washmachineapi.controllers.exception.DatabaseEntityNotFoundException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 
 import static org.junit.Assert.assertEquals;
@@ -20,13 +21,25 @@ public class MachineControllerTest  extends  BaseTest {
   private static final String GET_FORMAT = "/machine/%s/get";
   private static final String REMOVE_FORMAT = "/machine/%s/remove";
 
+  /**
+   * Checks, if the HELLO string is returned for the '/' query.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
-  public void helloTest_ShouldReturnHelloString() throws  Exception {
+  public void helloTest_ShouldReturnHelloString() throws Exception {
     String result = performControllerQuery(HELLO);
     String expected = MachineController.HELLO;
     assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the list of all machines is returned for the '/machine/all' query.
+   * Verifies that service method 'findAll' has been called once.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void findAll_ShouldReturnAllMachines() throws Exception {
     List<WashMachine> machines =  initMany(2);
@@ -37,6 +50,13 @@ public class MachineControllerTest  extends  BaseTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashMachine has been created via the '/machine/{modelName}/create' query.
+   * Verifies that service method 'save' has been called once.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void create_ShouldCreateNewMachine() throws Exception {
     String modelName = "model";
@@ -48,8 +68,13 @@ public class MachineControllerTest  extends  BaseTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the exception is thrown, if the WashMachine cannot be found in the database
+   * via '/machine/{modelName}/get' query.
+   * Exception is considered as a correct test result.d
+   */
   @Test
-  public void get_ShouldThrowExceptionIfModelNotFound() throws Exception {
+  public void get_ShouldThrowExceptionIfModelNotFound() {
     String modelName = "model3";
     Mockito.doReturn(null).when(washMachineServiceMock).findByModelName(modelName);
     Exception e = null;
@@ -63,6 +88,13 @@ public class MachineControllerTest  extends  BaseTest {
     }
   }
 
+  /**
+   * Checks, if the WashMachine has been found by modelName via the '/machine/{modelName}/get' query.
+   * Verifies that service method 'findByModelName' has been called once.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void get_ShouldFindMachineByModelName() throws Exception {
     List<WashMachine> machines = initMany(2);
@@ -74,6 +106,13 @@ public class MachineControllerTest  extends  BaseTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashMachine has been removed by modelName via the '/machine/{modelName}/remove' query.
+   * Verifies that service method 'remove' has been called once.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void remove_ShouldRemoveMachine() throws Exception {
     List<WashMachine> machines = initMany(2);

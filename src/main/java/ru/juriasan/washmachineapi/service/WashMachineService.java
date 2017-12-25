@@ -1,14 +1,12 @@
 package ru.juriasan.washmachineapi.service;
 
-import org.springframework.stereotype.Service;
-import ru.juriasan.washmachineapi.domain.WashMachine;
-
 import java.util.List;
+import ru.juriasan.washmachineapi.domain.WashMachine;
 
 public interface WashMachineService {
 
-  public List<WashMachine> findAll();
-  public WashMachine findByModelName(String modelName);
-  public WashMachine save(WashMachine machine);
-  public void remove(WashMachine machine);
+  List<WashMachine> findAll();
+  WashMachine findByModelName(String modelName);
+  WashMachine save(WashMachine machine);
+  void remove(WashMachine machine);
 }

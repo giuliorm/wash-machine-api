@@ -17,6 +17,12 @@ public class StateControllerTest extends BaseTest {
   private String GET_MODE_FORMAT = "/state/%s/getMode";
   private String SET_MODE_FORMAT = "/state/%s/setMode?mode=%s";
 
+  /**
+   * Checks, if the WashMachine state has been retrieved via the '/machine/{modelName}/getState' query.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void getState_ShouldReturnMachineState() throws Exception {
     WashMachine machine = initOne("model");
@@ -27,6 +33,13 @@ public class StateControllerTest extends BaseTest {
     Assert.assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashState.NONE is returned via the '/machine/{modelName}/getState' query and if
+   * the machine state in the database is null.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void getState_ShouldReturnNoneIfStateIsNull() throws Exception {
     WashMachine machine = initOne("model");
@@ -37,6 +50,13 @@ public class StateControllerTest extends BaseTest {
     Assert.assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashMachine state has been set via the
+   * '/machine/{modelName}/setState?state=stateValue' query.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void setState_ShouldSetMachineState() throws Exception {
     WashMachine machine = initOne("model");
@@ -48,6 +68,13 @@ public class StateControllerTest extends BaseTest {
     Assert.assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashMachine mode has been set via the
+   * '/machine/{modelName}/setMode?mode=modeValue' query.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void setMode_ShouldSetMachineMode() throws Exception {
     WashMachine machine = initOne("model");
@@ -59,6 +86,12 @@ public class StateControllerTest extends BaseTest {
     Assert.assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashMachine mode has been retrieved via the '/machine/{modelName}/getMode' query.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void getMode_ShouldReturnMachineMode() throws Exception {
     WashMachine machine = initOne("model");
@@ -69,6 +102,13 @@ public class StateControllerTest extends BaseTest {
     Assert.assertEquals(expected, result);
   }
 
+  /**
+   * Checks, if the WashMode.NONE is returned via the '/machine/{modelName}/getMode' query and if
+   * the machine mode in the database is null.
+   * Compares result strings in the JSON format.
+   *
+   * @throws Exception if the query to a controller has failed.
+   */
   @Test
   public void getMode_ShouldReturnNoneIfModeIsNull() throws Exception {
     WashMachine machine = initOne("model");

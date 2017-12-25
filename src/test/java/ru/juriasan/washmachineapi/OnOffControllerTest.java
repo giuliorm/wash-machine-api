@@ -16,7 +16,17 @@ public class OnOffControllerTest extends BaseTest {
   private static final String TURN_ON_QUERY_FORMAT = "/turn/%s/on";
   private static final String TURN_OFF_QUERY_FORMAT = "/turn/%s/off";
 
-  private void turnOnOffTest(boolean turnOff, String format) throws Exception {
+  /**
+   * Checks, if the machine turns off (or turns on) via /turn/{modelName}/off or /turn/{modelName}/on
+   * query respectively.
+   *
+   * @param turnOff the parameter, indicating, which method - turnOff or turnOn - will be checked.
+   * @param apiQueryFormat a format for an API query. Should be on of the following formats:
+   *                       - /turn/%s/on
+   *                       - /turn/%s/off
+   * @throws Exception if the query to a controller has failed.
+   */
+  private void turnOnOffTest(boolean turnOff, String apiQueryFormat) throws Exception {
     String modelName = "model";
     WashMachine machine = initOne(modelName);
 
@@ -27,7 +37,7 @@ public class OnOffControllerTest extends BaseTest {
     Mockito.doReturn(machine).when(washMachineServiceMock).findByModelName(modelName);
     Mockito.doAnswer(i -> i.getArguments()[0]).when(washMachineServiceMock).save(Mockito.anyObject());
 
-    String result = performControllerQuery(String.format(format, modelName));
+    String result = performControllerQuery(String.format(apiQueryFormat, modelName));
 
     if ( turnOff ) {
       machine.turnOff();

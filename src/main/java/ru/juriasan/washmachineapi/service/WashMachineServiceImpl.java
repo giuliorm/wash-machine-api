@@ -1,11 +1,10 @@
 package ru.juriasan.washmachineapi.service;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 import ru.juriasan.washmachineapi.repository.WashMachineRepository;
-
-import java.util.List;
 
 @Service
 public class WashMachineServiceImpl implements WashMachineService {
