@@ -46,4 +46,23 @@ machine with `modelName` is absent from the database.
 
 `/turn/{modelName}/isTurnedOn` - returns the flag `turnedOn` of the machine with specified `modelName`.
 
-`/state/{modelName}/getState` - returns the current 
+`/state/{modelName}/getState` - returns the state of the machine with specified `modelName`
+ 
+`/state/{modelName}/setState?state=<state>` - sets the `<state>` to the machine with specified `modelName`.
+The `<state>` parameter can have only the following values:
+-   READY
+-   WASHING
+-   SPINNING
+-   NONE 
+If state value differs from the list of the defined values, then the error occurs. 
+
+`/state/{modelName}/getMode` - returns the mode of the machine with specified `modelName`
+ 
+`/state/{modelName}/setMode?mode=<mode>` - sets the `<mode>` to the machine with specified `modelName`.
+The `<mode>` parameter can have only the following values:
+-   SILK
+-   WOOL
+-   NORMAL
+-   NONE
+
+If mode value differs from the list of the defined values, then the error occurs. 
