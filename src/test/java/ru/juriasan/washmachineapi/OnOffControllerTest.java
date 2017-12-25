@@ -2,11 +2,14 @@ package ru.juriasan.washmachineapi;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.juriasan.washmachineapi.controllers.OnOffController;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 
+@RunWith(SpringRunner.class)
 @WebMvcTest(value = OnOffController.class, secure = false)
 public class OnOffControllerTest extends BaseTest {
 
@@ -15,7 +18,7 @@ public class OnOffControllerTest extends BaseTest {
 
   private void turnOnOffTest(boolean turnOff, String format) throws Exception {
     String modelName = "model";
-    WashMachine machine = init(modelName);
+    WashMachine machine = initOne(modelName);
 
     if ( turnOff ) {
       machine.turnOn();
@@ -24,7 +27,7 @@ public class OnOffControllerTest extends BaseTest {
     Mockito.doReturn(machine).when(washMachineServiceMock).findByModelName(modelName);
     Mockito.doAnswer(i -> i.getArguments()[0]).when(washMachineServiceMock).save(Mockito.anyObject());
 
-    String result = performControllerQuery(modelName, format);
+    String result = performControllerQuery(String.format(format, modelName));
 
     if ( turnOff ) {
       machine.turnOff();

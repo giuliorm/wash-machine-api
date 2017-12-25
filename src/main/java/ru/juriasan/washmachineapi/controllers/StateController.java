@@ -29,14 +29,13 @@ public class StateController extends BaseController {
   }
 
   @RequestMapping("/{modelName}/setState")
-  public String setState(@PathVariable String modelName, @RequestParam(name = "state") WashState state) {
+  public WashMachine setState(@PathVariable String modelName, @RequestParam(name = "state") WashState state) {
     if ( state == null ) {
       throw new InvalidParameterException(String.format(CANNOT_SET_STATE_FORMAT, STATE_IS_NULL));
     }
     WashMachine machine = findByModelName(modelName, CANNOT_SET_STATE_FORMAT);
     machine.setState(state);
-    service.save(machine);
-    return STATE_IS_UPDATED_SUCCESSFULLY;
+    return service.save(machine);
   }
 
   @RequestMapping("/{modelName}/getMode")
@@ -46,13 +45,12 @@ public class StateController extends BaseController {
   }
 
   @RequestMapping("/{modelName}/setMode")
-  public String setCurrentWashMode(@PathVariable String modelName, @RequestParam(name = "mode") WashMode washMode) {
+  public WashMachine setCurrentWashMode(@PathVariable String modelName, @RequestParam(name = "mode") WashMode washMode) {
     if ( washMode == null ) {
       throw new InvalidParameterException(String.format(CANNOT_SET_CURRENT_WASH_MODE_FORMAT, WASH_MODE_IS_NULL));
     }
     WashMachine machine = findByModelName(modelName, CANNOT_SET_CURRENT_WASH_MODE_FORMAT);
     machine.setCurrentWashMode(washMode);
-    service.save(machine);
-    return WASH_MODE_IS_UPDATED_SUCCESSFULLY;
+    return service.save(machine);
   }
 }

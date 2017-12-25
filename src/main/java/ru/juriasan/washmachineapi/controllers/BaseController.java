@@ -1,15 +1,11 @@
 package ru.juriasan.washmachineapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import ru.juriasan.washmachineapi.controllers.exception.DatabaseEntityNotFoundException;
 import ru.juriasan.washmachineapi.controllers.exception.InvalidParameterException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 import ru.juriasan.washmachineapi.service.WashMachineService;
 
-@RequestMapping("/")
-@RestController()
 public class BaseController {
 
   @Autowired

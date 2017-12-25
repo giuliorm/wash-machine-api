@@ -1,13 +1,9 @@
 package ru.juriasan.washmachineapi.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.juriasan.washmachineapi.controllers.exception.DatabaseEntityNotFoundException;
 import ru.juriasan.washmachineapi.domain.WashMachine;
 import ru.juriasan.washmachineapi.domain.WashMode;
 import ru.juriasan.washmachineapi.domain.WashState;
@@ -26,8 +22,8 @@ public class MachineController extends BaseController {
   }
 
   @RequestMapping("/machine/all")
-  public List<String> findAll() {
-    return service.findAll().stream().map(WashMachine::getModelName).collect(Collectors.toList());
+  public List<WashMachine> findAll() {
+    return service.findAll();
   }
 
   @RequestMapping("/machine/{modelName}/create")

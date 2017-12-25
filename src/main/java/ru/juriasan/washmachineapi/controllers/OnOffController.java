@@ -13,8 +13,6 @@ public class OnOffController extends BaseController {
 
   public static final String CANNOT_TURN_MACHINE_ON_FORMAT = "Cannot turn machine on: %s";
   public static final String CANNOT_TURN_MACHINE_OFF_FORMAT = "Cannot turn machine off: %s";
-  public static final String TURNED_ON_SUCCESSFULLY = "Machine has been turned on successfully";
-  public static final String TURNED_OFF_SUCCESSFULLY = "Machine has been turned off successfully";
   public static final String MACHINE_IN_STATE_FORMAT = "Machine is currently in %s state, cannot be turned off.";
 
   @RequestMapping("/{modelName}/on")
@@ -24,7 +22,6 @@ public class OnOffController extends BaseController {
     return service.save(machine);
   }
 
-  // transactional integrity?...
   @RequestMapping("/{modelName}/off")
   public WashMachine turnOff(@PathVariable String modelName) {
     WashMachine machine = findByModelName(modelName, CANNOT_TURN_MACHINE_OFF_FORMAT);
