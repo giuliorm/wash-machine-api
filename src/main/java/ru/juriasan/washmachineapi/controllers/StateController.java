@@ -18,8 +18,6 @@ public class StateController extends BaseController {
   public static final String CANNOT_GET_CURRENT_WASH_MODE_FORMAT = "Cannot get current wash mode: %s";
   public static final String CANNOT_SET_CURRENT_WASH_MODE_FORMAT = "Cannot set current wash mode: %s";
   public static final String STATE_IS_NULL = "State parameter is null.";
-  public static final String STATE_IS_UPDATED_SUCCESSFULLY = "State has been updated successfully.";
-  public static final String WASH_MODE_IS_UPDATED_SUCCESSFULLY = "Wash mode has been updated successfully.";
   public static final String WASH_MODE_IS_NULL = "Wash mode is null.";
 
   @RequestMapping("/{modelName}/getState")
